@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<!--<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="userTemplates/userBase::layout(~{::section})" >-->
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="userTemplates/userBase::layout(~{::section})" >
+<head>
+  <meta charset="UTF-8">
+  <title th:text="${title}"></title>
+
+</head>
+<body>
+
+
+<section>
+
+
+    <div class="container">
+        <div th:if="${session.message}"class="alert alert-primary" role="alert">
+            <p th:text="${session.message.content}"></p>
+            <th:block th:text="${#session.removeAttribute('message')}"></th:block>
+        </div>
+  <div class="card ">
+  <div class="card-body">
+    <h1 >Add contact</h1>
+
+
+          <form action="#" th:object="${contact}"
+          enctype="multipart/form-data"
+          method="post"
+          th:action="@{/user/saveContact}">
+
+
+            <div class="input-group">
+
+              <div class="input-group-text ">
+                <i class="fa fa-plus"></i>
+              </div>
+              <input type="text" class="form-control" name="name" placeholder="Full name">
+
+            </div>
+
+
+        <div class="input-group">
+          <div class="input-group-text">
+            <i class="fa fa-plus"></i>
+
+          </div>
+          <input type="email" class="form-control"  name="email" placeholder="xyz@gmail.com">
+
+        </div>
+
+
+            <div class="input-group">
+              <div class="input-group-text">
+                <i class="fa fa-phone"></i>
+
+              </div>
+              <input type="number" class="form-control"  name="phone" placeholder="Phone number">
+
+            </div>
+
+
+            <div class="input-group">
+              <div class="input-group-text">
+                <i class="fa fa-briefcase"></i>
+
+              </div>
+              <input type="text" class="form-control"  name="work" placeholder="Work">
+
+            </div>
+
+
+            <div class="input-group">
+              <div class="input-group-text">
+                <i class="fa fa-book"></i>
+
+              </div>
+              <textarea type="text" class="form-control"  rows="5" name="description" placeholder="Describe him"></textarea>
+
+            </div>
+
+
+<!--              Add image seperately requestparam in controller-->
+            <div class="custom-file">
+
+              <input type="file" name="Profile" />
+            </div>
+
+
+            <div class="container text-center">
+              <button type="submit" class="btn btn-primary">Add Contact</button>
+            </div>
+          </form>
+            </div>
+
+
+    </div>
+
+
+  </div>
+
+  </div>
+  <form>
+
+  </form>
+
+</section>
+
+
+</body>
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="userTemplates/userBase::layout(~{::section})">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<section>
+    <div class="card ">
+        <div class="card-body">
+  <h1>Update</h1>
+    <form action="#" th:object="${contact}"
+          enctype="multipart/form-data"
+          method="post"
+          th:action="@{'/user/saveModifiedContact/'+${contact.getId()}}">
+
+
+        <div class="input-group">
+
+            <div class="input-group-text ">
+                <i class="fa fa-plus"></i>
+            </div>
+            <input type="text" class="form-control" name="name" th:value="${contact.getName()}" placeholder="Full name">
+
+        </div>
+
+
+        <div class="input-group">
+            <div class="input-group-text">
+                <i class="fa fa-plus"></i>
+
+            </div>
+            <input type="email" class="form-control" th:value="${contact.getEmail()}" name="email" placeholder="xyz@gmail.com">
+
+        </div>
+
+
+        <div class="input-group">
+            <div class="input-group-text">
+                <i class="fa fa-phone"></i>
+
+            </div>
+            <input type="number" class="form-control" th:value="${contact.getPhone()}" name="phone" placeholder="Phone number">
+
+        </div>
+
+
+        <div class="input-group">
+            <div class="input-group-text">
+                <i class="fa fa-briefcase"></i>
+
+            </div>
+            <input type="text" class="form-control" th:value="${contact.getWork()}" name="work" placeholder="Work">
+
+        </div>
+
+
+        <div class="input-group">
+            <div class="input-group-text">
+                <i class="fa fa-book"></i>
+
+            </div>
+<!--            for text are use  th:text instead of th:value-->
+            <textarea th:text="${contact.getWork()}" type="text" class="form-control"  rows="5" name="description" placeholder="Describe him"></textarea>
+
+        </div>
+
+
+        <!--              Add image seperately requestparam in controller-->
+        <div class="custom-file">
+
+            <input type="file" name="Profile" />
+        </div>
+
+
+        <div class="container text-center">
+            <button type="submit" class="btn btn-primary">Update Contact</button>
+        </div>
+    </form>
+        </div>
+    </div>
+</section>
+
+</body>
+</html>

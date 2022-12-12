@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="userTemplates/userBase::layout(~{::section})" >
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<section>
+
+    <h1>Your contacts</h1>
+
+    <div th:if="${session.message}">
+        <div class="container alert alert-primary "  role="alert">
+        <p th:text="${session.message.content}" class="text-center"></p>
+        <th:block th:text="${#session.removeAttribute('message')}"></th:block>
+    </div>
+</div>
+
+    <div th:unless="${session.message}">
+        <table class="table table-dark table-striped-columns">
+            <thead >
+                <tr>
+                    <td>Name</td>
+                    <td>Image</td>
+                    <td>Email</td>
+                    <td>Phone</td>
+                    <td>Update</td>
+                    <td>Delete</td>
+              </tr>
+            </thead>
+
+            <tbody class="table-light">
+
+            <tr th:each="contact:${contactList}">
+                <td th:text="${contact.getName()}"></td>
+                <td >
+                    <img  th:src="*{'data:image/jpeg;base64,'+{contact.getImage()}}" style="width:50px;height:50px;">
+                </td>
+                <td th:text="${contact.getPhone()}"></td>
+                <td th:text="${contact.getWork()}"></td>
+                <td>
+                    <a class="btn btn-secondary" th:href="@{'/user/updateContact/'+${contact.getId()}}">Update</a>
+
+                </td>
+                <td >
+
+
+                    <a class="btn btn-danger" th:href="@{'/user/deleteContact/'+ ${contact.getId()}}">Delete</a>
+                </td>
+            </tr>
+
+            </tbody>
+
+        </table>
+    </div>
+
+
+
+</section>
+</body>
+</html>

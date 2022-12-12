@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="base::layout(~{::section})">
+
+<head>
+  <meta charset="UTF-8">
+  <title>home</title>
+
+
+</head>
+<body>
+
+
+<section >
+  <div class="continer" >
+    <div class="row">
+      <div class="col-md-6 offset-md-3">
+        <div class="my-card">
+
+          <div th:if="${param.error}" class="alert alert-danger" style="text-align:center;">
+            Invalid details. Make sure your details are correct.
+          </div>
+
+          <h1 style="text-align:center;"> Login.</h1>
+
+                  <!-- checkUser is processingUrl inside the config...  .loginprocessingURL("/checkuser")
+                    
+                    -->
+          <form action="" th:action="@{/checkUser}" method="post" >
+
+            <div class="mb-3">
+              <label  class="form-label">Email</label>
+          <!--  name="username for mapping to spring login-->
+              <input type="email" class="form-control" placeholder="example@gmail.com" name="username"  required>
+
+            </div>
+            <div class="mb-3">
+              <label  class="form-label">Password</label>
+              <input  type="password" class="form-control"  name="password" value="" required>
+
+            </div>
+
+
+
+            <button type="submit" class="btn btn-primary">Login</button>
+
+
+          </form>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</section>
+
+
+</body>
+</html>
