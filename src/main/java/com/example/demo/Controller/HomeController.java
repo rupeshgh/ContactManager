@@ -1,6 +1,7 @@
 package com.example.demo.Controller;
 
 import com.example.demo.Model.User;
+import com.example.demo.Service.EmailService;
 import com.example.demo.Service.UserService;
 import com.example.demo.config.Message;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.mail.MessagingException;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.Random;
@@ -16,6 +18,8 @@ import java.util.Random;
 @Controller
 public class HomeController {
 
+    @Autowired
+    EmailService emailService;
     @Autowired
     UserService userService;
 
@@ -62,13 +66,18 @@ public class HomeController {
     }
 
     @PostMapping("/verifyEmail")
-    public String verifyAndSendOtp(@RequestParam("email") String email,HttpSession session){
+    public String verifyAndSendOtp(@RequestParam("email") String email,HttpSession session) throws MessagingException {
 
       if(userService.checkEmail(email) ) {
             session.setAttribute("email",email);
           Random random=new Random();
           int otp= random.nextInt(0000,99999);
           System.out.println(otp);
+          emailService.sendEmail("Heres the otp",
+                  otp,
+                email
+
+          );
           session.setAttribute("generatedOTP",otp);
 
       return "/Recovery/verifyOtp";
