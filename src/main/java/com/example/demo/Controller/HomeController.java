@@ -2,6 +2,7 @@ package com.example.demo.Controller;
 
 import com.example.demo.Model.User;
 import com.example.demo.Service.UserService;
+import com.example.demo.config.Message;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.util.Random;
 
 @Controller
 public class HomeController {
@@ -51,5 +53,49 @@ public class HomeController {
 //    return userService.verifyUser(email,password,session);
 //
 //    }
+
+
+
+    @GetMapping("/ForgotPassword")
+    public String forgetPass(){
+        return"Recovery/ForgotPassword";
+    }
+
+    @PostMapping("/verifyEmail")
+    public String verifyAndSendOtp(@RequestParam("email") String email,HttpSession session){
+
+      if(userService.checkEmail(email) ) {
+            session.setAttribute("email",email);
+          Random random=new Random();
+          int otp= random.nextInt(0000,99999);
+          System.out.println(otp);
+          session.setAttribute("generatedOTP",otp);
+
+      return "/Recovery/verifyOtp";
+      }
+      else{
+          session.setAttribute("message",new Message("No such user","alert-danger"));
+          return "signin";
+      }
+
+    }
+
+    @PostMapping("/verifyOTP")
+    public String verifyOtp(@RequestParam("userOTP") String userOtp,HttpSession session){
+       int otp= (int) session.getAttribute("generatedOTP");
+        int uOtp=Integer.parseInt(userOtp);
+       if(otp==uOtp) {
+           System.out.println("otp matches");
+
+           return "/Recovery/changePassword";
+       }
+       else {
+           return "home";
+       }
+
+    }
+
+
+
 
 }

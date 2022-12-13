@@ -179,6 +179,18 @@ try{
 
         return contact.getUser().getId() == user.getId();
     }
+
+    public boolean checkEmail(String email) {
+
+       Optional<User> user= userRepository.findByEmail(email);
+
+       if(user.isPresent()){
+           return true;
+       }
+       else return false;
+
+
+    }
 }
 
 
