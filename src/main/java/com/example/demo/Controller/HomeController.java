@@ -18,8 +18,7 @@ import java.util.Random;
 @Controller
 public class HomeController {
 
-    @Autowired
-    EmailService emailService;
+
     @Autowired
     UserService userService;
 
@@ -59,50 +58,6 @@ public class HomeController {
 //    }
 
 
-
-    @GetMapping("/ForgotPassword")
-    public String forgetPass(){
-        return"Recovery/ForgotPassword";
-    }
-
-    @PostMapping("/verifyEmail")
-    public String verifyAndSendOtp(@RequestParam("email") String email,HttpSession session) throws MessagingException {
-
-      if(userService.checkEmail(email) ) {
-            session.setAttribute("email",email);
-          Random random=new Random();
-          int otp= random.nextInt(0000,99999);
-          System.out.println(otp);
-          emailService.sendEmail("Heres the otp",
-                  otp,
-                email
-
-          );
-          session.setAttribute("generatedOTP",otp);
-
-      return "/Recovery/verifyOtp";
-      }
-      else{
-          session.setAttribute("message",new Message("No such user","alert-danger"));
-          return "signin";
-      }
-
-    }
-
-    @PostMapping("/verifyOTP")
-    public String verifyOtp(@RequestParam("userOTP") String userOtp,HttpSession session){
-       int otp= (int) session.getAttribute("generatedOTP");
-        int uOtp=Integer.parseInt(userOtp);
-       if(otp==uOtp) {
-           System.out.println("otp matches");
-
-           return "/Recovery/changePassword";
-       }
-       else {
-           return "home";
-       }
-
-    }
 
 
 

@@ -5,6 +5,11 @@
     <title>Title</title>
 </head>
 <body>
+
+<div th:if="${session.message}">
+    <div  th:text="${session.message.content}"></div>
+    <th:block th:text="${#session.removeAttribute('message')}"></th:block>
+</div>
 <form method="post" th:action="@{/verifyOTP}">
     <label>Enter otp</label>
     <input type="text" name="userOTP">
