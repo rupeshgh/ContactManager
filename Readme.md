@@ -13,5 +13,5 @@
 
 **Client:** Html, JavaScript, Css,Thymeleaf
 
-**Server:** Java, SpringBoot
+**Server:** Java, SpringBoot,Spring Security
 
